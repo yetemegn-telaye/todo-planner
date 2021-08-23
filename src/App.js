@@ -1,15 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import {Navbar, NavbarBrand} from 'reactstrap';
+import Main from './components/MainComponent';
 
 function App() {
   return (
     <div className="App">
-      <Navbar dark color="dark">
-          <div className="container">
-              <NavbarBrand href="#">Todo-Planner</NavbarBrand>
-          </div>
-      </Navbar>
+      <Main/>
     </div>
   );
 }
