@@ -6,8 +6,7 @@ const Home = (props) => {
     return(
         <div className="container">
             <div>Home</div>
-            <Category/>
-            <Todo/>
+            
         </div>
     );
 }
