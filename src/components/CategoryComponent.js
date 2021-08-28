@@ -10,7 +10,7 @@ function RenderCategories({category}) {
                 <span className="text-muted">{new Intl.DateTimeFormat('en-US',{year:'numeric', month:'short', day:'2-digit'}).format(new Date(Date.parse(category.createdDate)))}</span>
                 <CardText>{category.description}</CardText>
                 <Link to={`/categories/${category.id}`}>
-                    <Button className="btn-warning">View Tasks</Button>
+                    <Button className="btn-theme">View Tasks</Button>
                 </Link>
             </CardBody>
         </Card>
@@ -39,6 +39,9 @@ const Category = (props)=>{
             </div>
             <div className="row">
                 {category}
+            </div>
+            <div className="row">
+                <Button className="btn-success m-auto">Add Category</Button>
             </div>
         </div>
         
