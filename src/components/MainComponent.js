@@ -20,7 +20,9 @@ class Main extends Component{
     render(){
         const CategoryTasks = ({match})=>{
             return(
-                <Todo tasks={this.state.todos.filter((todo)=>todo.categoryId === parseInt(match.params.categoryId,10))}/>
+                <Todo tasks={this.state.todos.filter((todo)=>todo.categoryId === parseInt(match.params.categoryId,10))}
+                    cats={this.state.categories.filter((cat)=>cat.categoryId === parseInt(match.params.categoryId,10))[0]}
+                />
             );
         }
         return(
@@ -30,6 +32,7 @@ class Main extends Component{
                         <Route path="/home" component={Home}/>
                         <Route exact path="/categories" component={()=><Category cats={this.state.categories}/>}/>
                         <Route exact path="/categories/:categoryId" component={CategoryTasks} />
+                        <Route exact path="/todos" component={Todo}/>
                         <Redirect to="/home"/>
                     </Switch>
                 <Footer />

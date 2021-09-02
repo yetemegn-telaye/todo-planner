@@ -61,7 +61,7 @@ class Header extends Component{
                         </Nav>
                         <Nav>
                             <NavItem>
-                                <Button outline color="primary" onClick={this.toggleModal}>
+                                <Button outline color="success" onClick={this.toggleModal}>
                                     <span className="fa fa-sign-in fa-lg"></span>
                                 </Button>
                             </NavItem>
@@ -73,7 +73,7 @@ class Header extends Component{
                 <div className="container">
                     <div className="row">
                         <div className="col-12 col-sm-6">
-                        <h2>Todo App</h2>
+                        <h2>Day Planner</h2>
                         <p>Organize your life with us, starting from your longterm goals to your day to day activities. Plan your days ahead and Make your life better.</p>
                         </div>
                     </div>
