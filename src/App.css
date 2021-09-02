@@ -5,7 +5,7 @@
   background-color: rgb(247, 243, 250);
 }
 .header-container {
-  background-color: rgb(73, 42, 102);
+  background-color: rgb(217, 191, 241);
   border-radius: 15px;
 }
 .jumbotron {
@@ -26,7 +26,7 @@ footer .main-footer {
   padding: 10px;
 
   padding-bottom: 0px;
-  margin-top: 30px;
+  margin-top: 200px;
   background: rgb(68, 67, 68);
 }
 
@@ -166,95 +166,10 @@ footer.light .footer-copyright {
   color: #fff;
 }
 
-ul.social-footer2 {
-  margin: 0;
-  padding: 0;
-  width: auto;
-}
-ul.social-footer2 li {
-  display: inline-block;
-  padding: 0;
-}
-ul.social-footer2 li a:hover {
-  background-color: #ff8d1e;
-}
-ul.social-footer2 li a {
-  display: block;
-  height: 30px;
-  width: 30px;
-  text-align: center;
-}
-.submitbtn {
-  background-color: #ff8d1e;
-  color: #fff;
-}
-.submitbtn:hover,
-.submitbtn:focus,
-.submitbtn.active {
-  background: #4b92dc;
-  color: #fff;
-  -webkit-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-  -ms-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-  -o-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-  -webkit-transition: all 250ms ease-in-out 0s;
-  -moz-transition: all 250ms ease-in-out 0s;
-  -ms-transition: all 250ms ease-in-out 0s;
-  -o-transition: all 250ms ease-in-out 0s;
-  transition: all 250ms ease-in-out 0s;
-}
 
-.fa {
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  background-color: #3e3e3e;
-  color: #fff;
-  padding: 9px;
-  border-radius: 5px;
-}
 
-#subscribe-box .emailfield {
-  margin: auto;
-}
 
-input[type="text"] {
-  background: rgba(255, 255, 255, 0.075);
-  padding: 10px 15px;
-  color: #aaa;
-  border: 3px solid rgba(0, 0, 0, 0.1);
-  font-size: 14px;
-  margin-bottom: 16px;
-  border-radius: 5px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: 0.2s;
-  text-align: center;
-  width: 100%;
-}
 
-input.submitbutton.ripplelink {
-  background: #e67e22;
-  border: 3px solid rgba(0, 0, 0, 0.1);
-  color: #fff;
-  border-color: #e67e22;
-  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
-  transition-delay: 0s;
-  width: 100%;
-  font-size: 14px;
-  /* font-weight: 700; */
-  border: 0px solid;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  padding: 10px 15px;
-  margin-bottom: 16px;
-  border-radius: 5px;
-}
 
-.thumb-content ::before {
-  content: "\f190";
-  font-family: FontAwesome;
-  font-style: normal;
-  font-weight: normal;
-  text-decoration: inherit;
-  margin-left: 5px;
-  color: #ffffff;
-}
+
+

@@ -17,7 +17,7 @@ function RenderCategories({category}) {
                 <span className="text-muted">{new Intl.DateTimeFormat('en-US',{year:'numeric', month:'short', day:'2-digit'}).format(new Date(Date.parse(category.createdDate)))}</span>
                 <CardText>{category.description}</CardText>
                 <Link to={`/categories/${category.id}`}>
-                    <Button outline color="success" className="btn">View Tasks</Button>
+                    <Button className="btn btn-outline-primary">View Tasks</Button>
                 </Link>
             </CardBody>
         </Card>
@@ -52,7 +52,11 @@ function CategoryForm(){
                  <span className="fa fa-pencil-square-o mr-2"></span>
                     Add Category</Button>
              <Modal isOpen={modalIsOpen} style={customStyles}>
-                <i onClick={setModalIsOpenToFalse} className="fa fa-times float-right text-secondary"></i>
+                 <span type="button" className="btn btn-outline-danger rounded-pill float-right"
+                    
+                   onClick={setModalIsOpenToFalse} >
+                <i className="fa fa-times text-secondary"></i>
+                </span>
                 <ModalHeader>
                     Add Category
                 </ModalHeader>

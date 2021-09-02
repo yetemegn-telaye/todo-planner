@@ -16,12 +16,12 @@ function RenderTodos ({todo}){
                    <span className="mr-auto">{todo.name} ({todo.description})</span>
                    
                  
-                    <a className="btn btn-dark btn-floating text-white">
-                        <i className="fa fa-pencil-square-o bg-info mr-1"></i>
+                    <a className="btn btn-success btn-floating text-white">
+                        <i className="fa fa-pencil-square-o mr-1"></i>
                           Edit
                     </a>
-                    <a className="btn btn-light btn-floating text-white ml-2">
-                        <i className="fa fa-trash-o fa-lg bg-danger"></i>
+                    <a className="btn btn-danger btn-floating text-white ml-2">
+                        <i className="fa fa-trash-o fa-lg"></i>
                     </a>
                     
                    
@@ -55,7 +55,7 @@ function AddTodoForm(){
                                 />
                             </Col>
                             <Col md={2}>
-                                <Button outline color="success" className="btn m-auto mt-3 ">+ Add New</Button>
+                                <Button className="btn btn-outline-primary m-auto mt-3 ">+ Add New</Button>
                             </Col>
                         </Row>
                     </LocalForm>

@@ -24,8 +24,8 @@ const Home = (props) => {
                             <CardTitle tag="h5">Start Today</CardTitle>
                             <CardText>
                                 Add your Daily Task
-                                <span className="btn btn-light ml-2">
-                                    <i className="fa fa-plus-circle fa-lg" style={{color: "#fffdbf", width:50}}></i>
+                                <span className="btn btn-success ml-2">
+                                    <i className="fa fa-plus-circle fa-lg"></i>
                                 </span>
                             </CardText>
                     </Card>
