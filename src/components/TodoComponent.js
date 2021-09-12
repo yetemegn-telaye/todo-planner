@@ -33,9 +33,10 @@ function RenderTodos ({todo}){
         </div>
     );
 }
-function AddTodoForm(){
+function AddTodoForm({add_cattask,cat_id}){
     const handleNewTask= (newtask)=>{
         alert('Added Task is: ' + JSON.stringify(newtask));
+        add_cattask(cat_id, newtask.taskname);
     }
     return(
         <div className="col-12">
@@ -85,7 +86,7 @@ const Todo = (props) => {
                 </div>
             </div>
             <div className="row container ml-5">
-                <AddTodoForm/>
+                <AddTodoForm add_cattask = {props.add_cattask} cat_id={props.cats.cat_id}/>
             </div>
             <div className="row container m-auto">
                     {todo}

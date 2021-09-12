@@ -2,7 +2,7 @@ export const TODOS= [
     {
         id: 0,
         categoryId: 0,
-        name: 'Clean House',
+        task_name: 'Clean House',
         description: 'cleaning the livingroom and kitchen',
         createdDate: "2020-10-16T17:57:28.556094Z",
         dueDate: "2020-10-16T17:57:28.556094Z",

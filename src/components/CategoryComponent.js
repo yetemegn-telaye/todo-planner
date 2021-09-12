@@ -12,18 +12,18 @@ const minLength = (len) => (val) => (val) && (val.length >= len);
 function RenderCategories({category}) {
     return(
         <Card body outline color="primary">
-            <CardHeader tag="h5">{category.name}</CardHeader>
+            <CardHeader tag="h5">{category.cat_name}</CardHeader>
             <CardBody>
-                <span className="text-muted">{new Intl.DateTimeFormat('en-US',{year:'numeric', month:'short', day:'2-digit'}).format(new Date(Date.parse(category.createdDate)))}</span>
-                <CardText>{category.description}</CardText>
-                <Link to={`/categories/${category.id}`}>
+                <span className="text-muted">{new Intl.DateTimeFormat('en-US',{year:'numeric', month:'short', day:'2-digit'}).format(new Date(Date.parse(category.cat_createdDate)))}</span>
+                <CardText>{category.cat_description}</CardText>
+                <Link to={`/categories/${category.cat_id}`}>
                     <Button className="btn btn-outline-primary">View Tasks</Button>
                 </Link>
             </CardBody>
         </Card>
     );
 }
-function CategoryForm(){
+function CategoryForm({add_category}){
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const setModalIsOpenToTrue =()=>{
         setModalIsOpen(true)
@@ -44,6 +44,7 @@ function CategoryForm(){
     };
    function handleSubmit(values){
         alert("Added Category: " + JSON.stringify(values));
+        add_category(values.name, values.desc);
     }
   
     return(
@@ -86,15 +87,8 @@ function CategoryForm(){
                                 placeholder="Description" className="form-control" />
                             </Col>
                         </Row>
-                        <Row className="form-group">
-                            <Label htmlFor="startdate" md={4}>Created Date:</Label>
-                            <Col md={8}>
-                                <Input type="date" name="startdate"
-                                className="form-control" />
-                                    
-                            </Col>
-                        </Row>
-                        <Row className="form-contro">
+                       
+                        <Row className="form-control">
                             <Col md={{size:10, offset: 4}}>
                                 <Button outline color="primary" >Create</Button>
                             </Col>
@@ -130,7 +124,7 @@ const Category = (props)=>{
                 {category}
             </div>
             <div className="row">
-               <CategoryForm/>
+               <CategoryForm add_category={props.add_category}  />
             </div>
         </div>
         
