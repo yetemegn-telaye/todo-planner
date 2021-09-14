@@ -1,8 +1,16 @@
 import * as ActionTypes from './actionTypes';
-import {TODOS} from '../shared/todos';
 
-export const Todos = (state= TODOS, action)=>{
+
+export const Todos = (state= {
+    isLoading: true,
+    errMsg: null,
+    todos: []
+}, action)=>{
     switch (action.type) {
+        case ActionTypes.VIEW_CATTASKS:
+            return {...state, isLoading: false, errMsg: null, todos: action.payload};
+        case ActionTypes.CATTASKS_FAILED:
+            return {...state, isLoading: false, errMsg: action.payload, todos: []};
         case ActionTypes.ADD_CATTASK:
             var cat_task = action.payload;
             cat_task.id = state.length;
@@ -11,7 +19,7 @@ export const Todos = (state= TODOS, action)=>{
             cat_task.dueDate = new Date().toISOString();
             cat_task.completed = 'false';
             cat_task.hrs = 3;
-            return state.concat(cat_task);
+            return {...state, todos: state.todos.concat(cat_task)};
         default:
             return state;
     }

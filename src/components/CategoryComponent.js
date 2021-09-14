@@ -4,6 +4,7 @@ import { Card, CardBody, CardHeader, Row,Col, CardText,Button,
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import {LocalForm, Control, Errors} from 'react-redux-form';
+import Loading from './LoadingComponent';
 
 
 const maxLength = (len) =>(val) => !(val) || (val.length <= len) ;
@@ -101,33 +102,48 @@ function CategoryForm({add_category}){
 }
 
 const Category = (props)=>{
-    const category = props.cats.map((category)=>{
+    if(props.catsLoading){
         return(
-            <div key={category.id} className="col-12 col-md-5 m-3">
-                <RenderCategories category={category}/>
+            <div className="container">
+                <Loading/>
             </div>
         );
-    })
-    return(
-        <div className="container">
-            <div className="row mt-5">
-                <Breadcrumb>
-                    <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
-                    <BreadcrumbItem active>Categories</BreadcrumbItem>
-                </Breadcrumb>
-                <div className="col-12 mt-5">
-                    <h2 className="text-secondary">Categories</h2>
-                    <hr/>
+    }
+    else if(props.catsErrMsg){
+        return(
+            <div className="container">
+                <h4>{props.catsErrMsg}</h4>
+            </div>
+        );
+    }
+    else{
+        const category = props.cats.map((category)=>{
+            return(
+                <div key={category.cat_id} className="col-12 col-md-5 m-3">
+                    <RenderCategories category={category}/>
                 </div>
-            </div>
-            <div className="row">
-                {category}
-            </div>
-            <div className="row">
-               <CategoryForm add_category={props.add_category}  />
-            </div>
-        </div>
-        
-    );
+                );
+        });
+        return(
+            <div className="container">
+                <div className="row mt-5">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>Categories</BreadcrumbItem>
+                    </Breadcrumb>
+                        <div className="col-12 mt-5">
+                            <h2 className="text-secondary">Categories</h2>
+                            <hr/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        {category}
+                    </div>
+                    <div className="row">
+                    <CategoryForm add_category={props.add_category}/>
+                    </div>
+                </div>
+                
+            );}
 }
 export default Category;

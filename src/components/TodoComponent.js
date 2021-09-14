@@ -2,6 +2,7 @@ import React from 'react';
 import {Breadcrumb,BreadcrumbItem, ListGroup,Button,Row,Col, ListGroupItem} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import Loading from './LoadingComponent';
 
 
 
@@ -64,41 +65,54 @@ function AddTodoForm({add_cattask,cat_id}){
     );
 }
 const Todo = (props) => {
-    if (props.tasks != null){
-    const todo = props.tasks.map((task)=>{
+    if(props.tasksLoading){
         return(
-            <div key={task.id} className="col-12 m-2">
-                <RenderTodos todo={task}/>
+            <div className="container">
+                <Loading/>
             </div>
         );
-    }) 
-    return(
-        <div className="container ">
-            
-            <div className="row mt-5">
-                <Breadcrumb>
-                    <BreadcrumbItem><Link to="/categories">Categories</Link></BreadcrumbItem>
-                    <BreadcrumbItem active>Tasks</BreadcrumbItem>
-                </Breadcrumb>
-                <div className="col-12 mt-5">
-                    <h2 className="text-secondary">Tasks</h2>
-                    <hr/>
+    }
+    else if(props.tasksErrMsg){
+        return(
+            <h3>{props.tasksErrMsg}</h3>
+        );
+    }
+    else 
+        if (props.tasks != null){
+        const todo = props.tasks.map((task)=>{
+            return(
+                <div key={task.id} className="col-12 m-2">
+                    <RenderTodos todo={task}/>
+                </div>
+            );
+        }) 
+        return(
+            <div className="container ">
+                
+                <div className="row mt-5">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to="/categories">Categories</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>Tasks</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12 mt-5">
+                        <h2 className="text-secondary">Tasks</h2>
+                        <hr/>
+                    </div>
+                </div>
+                <div className="row container ml-5">
+                    <AddTodoForm add_cattask = {props.add_cattask} cat_id={props.cats.cat_id}/>
+                </div>
+                <div className="row container m-auto">
+                        {todo}
+                        
                 </div>
             </div>
-            <div className="row container ml-5">
-                <AddTodoForm add_cattask = {props.add_cattask} cat_id={props.cats.cat_id}/>
-            </div>
-            <div className="row container m-auto">
-                    {todo}
-                    
-            </div>
-        </div>
-    );
-    }
-    else {
-        return(
-            <div>Task is null</div>
         );
-    }
+        }
+        else {
+            return(
+                <div>Task is null</div>
+            );
+        }
 }
 export default Todo;
