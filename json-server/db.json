@@ -1,0 +1,72 @@
+{
+  "categories": [
+    {
+      "id": 2,
+      "cat_name": "ReadingBooks",
+      "cat_description": "TrackYourBookreading",
+      "cat_createdDate": "2020-12-16T17:57:28.556094Z"
+    },
+    {
+      "id": 3,
+      "cat_name": "GrocceryShopping",
+      "cat_description": "organizeshoppinglist",
+      "cat_createdDate": "2020-08-16T17:57:28.556094Z"
+    },
+    {
+      "cat_name": "Real-estate",
+      "cat_description": "poi",
+      "cat_createdDate": "2021-09-15T09:57:35.039Z",
+      "id": 4
+    },
+    {
+      "cat_name": "Angular 8 ",
+      "cat_description": "practice",
+      "cat_createdDate": "2021-09-15T10:03:32.523Z",
+      "id": 5
+    },
+    {
+      "cat_name": "tats",
+      "cat_description": "kjhj",
+      "cat_createdDate": "2021-09-21T22:16:28.571Z",
+      "id": 6
+    },
+    {
+      "cat_name": "new",
+      "cat_description": "test post",
+      "cat_createdDate": "2021-10-07T10:01:49.313Z",
+      "id": 7
+    }
+  ],
+  "todos": [
+    {
+      "categoryId": 7,
+      "name": "check1",
+      "description": "something",
+      "createdDate": "2021-10-19T10:51:32.667Z",
+      "dueDate": "2021-10-19T10:51:32.667Z",
+      "completed": false,
+      "hrs": 3,
+      "id": 22
+    },
+    {
+      "categoryId": 5,
+      "name": "testing",
+      "description": "something",
+      "createdDate": "2021-10-25T11:34:25.608Z",
+      "dueDate": "2021-10-25T11:34:25.608Z",
+      "completed": false,
+      "hrs": 3,
+      "id": 24
+    },
+    {
+      "categoryId": 5,
+      "name": "test",
+      "description": "something",
+      "completed": true,
+      "hrs": 3,
+      "createdDate": "2021-11-04T10:23:41.245Z",
+      "dueDate": "2021-11-04T10:23:41.245Z",
+      "id": 25
+    }
+  ]
+}

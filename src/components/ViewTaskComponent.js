@@ -1,56 +1,17 @@
 import React, {useState} from 'react';
-import {Breadcrumb,BreadcrumbItem, ListGroup,Button,Row,Col, ListGroupItem,ModalHeader, ModalBody,Label} from 'reactstrap';
+import {Breadcrumb,BreadcrumbItem, Card,CardBody,CardHeader,CardText,Row,Col,ModalHeader, ModalBody,Label,Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import Modal from 'react-modal';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import Loading from './LoadingComponent';
-
 
 
 const maxLength = (len) =>(val) => !(val) || (val.length <= len) ;
 const minLength = (len) => (val) => (val) && (val.length >= len);
 
 
-//View Tasks
-function RenderTodos ({todo,cat,edit_cattask,delete_cattask}){
 
-    function handleCheck(e){
-        if(e.target.checked == true){
-            console.log(todo.completed);
-        }
-        else
-            //document.getElementById("tsk").style.textDecorationLine="none";
-            console.log(todo.completed);
-            
-    }
 
-    return(
-        <div >
-            <ListGroup>
-               <ListGroupItem className="d-inline-flex p-2 bd-highlight">
-                    <input type="checkbox" className="mt-3" onClick={(e)=>handleCheck(e)}/>
-                   <span className="mr-auto">
-                        
-                       <Link to={`/categories/${cat}/${todo.id}`} className="text-muted nav-link cattask-link">
-                           
-                           <span className="text-uppercase text-warning font-weight-bold" className="tsk">{todo.name} &nbsp;&nbsp;</span>  
-                           ({todo.description})
-                       </Link>
-                    </span>
-                   
-                    <TaskEditForm curr_task={todo} edit_cattask={edit_cattask} cat={cat}/>
-                    
-                  <RemoveTask delete_cattask={delete_cattask} task_id={todo.id}/>
-                    
-                   
-                    
-               </ListGroupItem> 
-               
-               
-            </ListGroup>
-        </div>
-    );
-}
+
 //DELETE A TASK
 function RemoveTask({delete_cattask,task_id}){
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -84,10 +45,10 @@ function RemoveTask({delete_cattask,task_id}){
     }
   
     return(
-        <div className="m-2">
+        <div className="mr-1 mt-3">
              <a  className="btn btn-danger btn-floating btn-sm text-white" onClick={setModalIsOpenToTrue}>
-                 <span className="fa fa-trash-o mr-2"></span>
-                    (delete)</a>
+                 <span className="fa fa-trash-o"></span>
+                    </a>
              <Modal isOpen={modalIsOpen} style={customStyles}>
                  <span type="button" className="btn btn-outline-danger rounded-pill float-right"
                     
@@ -122,7 +83,7 @@ function RemoveTask({delete_cattask,task_id}){
 
 }
 
-//TASK EDIT
+//EDIT TASK HERE
 function TaskEditForm({curr_task,edit_cattask,cat}){
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const setModalIsOpenToTrue =()=>{
@@ -148,9 +109,9 @@ function TaskEditForm({curr_task,edit_cattask,cat}){
     }
   
     return(
-        <div className="m-2">
+        <div className="mt-3 mr-1">
              <a  className="btn-light btn-sm text-secondary" onClick={setModalIsOpenToTrue}>
-                 <span className="fa fa-pencil-square-o mr-2"></span>
+                 <span className="fa fa-pencil-square-o"></span>
                     (Edit)</a>
              <Modal isOpen={modalIsOpen} style={customStyles}>
                  <span type="button" className="btn btn-outline-danger rounded-pill float-right"
@@ -216,59 +177,9 @@ function TaskEditForm({curr_task,edit_cattask,cat}){
 }
 
 
-function AddTodoForm({post_cattask,cat_id}){
-    const handleNewTask= (newtask)=>{
-        alert('Added Task is: ' + JSON.stringify(newtask));
-        post_cattask(cat_id, newtask.taskname);
-    }
-    return(
-        <div className="col col-md-7 m-2">
-                    <LocalForm onSubmit={(newtask)=>handleNewTask(newtask)}>
-                        <Row className="form-group">
-                            <Col md={8}>
-                                <Control.text model=".taskname" name="taskname" 
-                                placeholder="Add Your Task Here" className="form-control mb-2"
-                                validators={{minLength: minLength(3), maxLength: maxLength(10)}}
-                                />
-                                <Errors
-                                    model=".taskname" show="touched" className="text-danger"
-                                    messages={{
-                                        minLength: 'Task name should be greater than 3 Characters',
-                                        maxLength: 'Task name should be less than 10 Characters',
-                                    }}
-                                />
+export const ViewTask = (props) => {
+    
 
-                            </Col>
-                            <Col md={2}>
-                                <Button className="btn btn-outline-info">+ Add New</Button>
-                            </Col>
-                        </Row>
-                    </LocalForm>
-                </div>
-    );
-}
-const Todo = (props) => {
-    if(props.tasksLoading){
-        return(
-            <div className="container">
-                <Loading/>
-            </div>
-        );
-    }
-    else if(props.tasksErrMsg){
-        return(
-            <h3>{props.tasksErrMsg}</h3>
-        );
-    }
-    else 
-        if (props.tasks != null){
-        const todo = props.tasks.map((task)=>{
-            return(
-                <div key={task.id} className="col-12 m-2">
-                    <RenderTodos todo={task} cat={props.cats.id} edit_cattask={props.edit_cattask} delete_cattask={props.delete_cattask}/>
-                </div>
-            );
-        }) 
         return(
             <div className="container ">
                 
@@ -276,31 +187,43 @@ const Todo = (props) => {
                     <Breadcrumb>
                         <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
                         <BreadcrumbItem><Link to="/categories">Categories</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>Task List</BreadcrumbItem>
+                        <BreadcrumbItem className="text-uppercase">  <Link to={`/categories/${props.cats.id}`}>Task List</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>Task</BreadcrumbItem>
                     </Breadcrumb>
                     <div className="col-12 mt-5">
-                        <h2 className="text-info text-uppercase">{props.cats.cat_name}</h2>
+                        <h2 className="text-info text-uppercase">{props.tasks.name} <span className="text-secondary font-weight-light">(Detail)</span></h2>
                         
                         <hr/>
                         
                     </div>
                 </div>
+                
+                <div className="row container m-auto justify-content-center">
+                    <div className="col-6">
+                    <Card body outline color="info" className="text-uppercase">
+                        <CardHeader tag="h5"> 
+                            {props.tasks.name} 
+                            <span className="float-right" style={{display: "flex"}}>
+                            <TaskEditForm curr_task={props.tasks} edit_cattask={props.edit_cattask} cat={props.cats.id}/>
+                            <RemoveTask delete_cattask={props.delete_cattask} task_id={props.tasks.id}/>
+                            </span>
+                        </CardHeader>
+                        <CardBody>
+                            <CardText>
+                            <p className="text-muted">
+                                Due Date: {new Intl.DateTimeFormat('en-US',{year:'numeric', month:'short', day:'2-digit'}).format(new Date(Date.parse(props.tasks.dueDate)))}
+                                </p>
+                                <p>Description: {props.tasks.description}</p>
+                            <p>Hours spent: {props.tasks.hrs}(Hrs)</p>
+                            <p>Status: {props.tasks.completed}</p>
+                            </CardText>
+                            
+                        </CardBody>
+                    </Card>
+                    </div>
                     
-                <div className="row container m-auto justify-content-center outline" color="info">
-                    <AddTodoForm post_cattask = {props.post_cattask} cat_id={props.cats.id}/>
-                </div>
-                <h5 className="text-secondary text-center m-4">All Tasks</h5>
-                <div className="row container m-auto">
-                        {todo}
                         
                 </div>
             </div>
         );
-        }
-        else {
-            return(
-                <div>Task is null</div>
-            );
-        }
 }
-export default Todo;

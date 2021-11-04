@@ -14,9 +14,10 @@ export const Categories = (state={
             return {...state, isLoading: false, categories: [], errMsg: action.payload};
         case ActionTypes.ADD_CATEGORY:
             var category = action.payload;
-            category.cat_id = state.length;
-            category.cat_createdDate = new Date().toISOString();
             return {...state, categories: state.categories.concat(category)};
+        case ActionTypes.DELETE_CATEGORY:
+                var category = action.payload;
+                return {...state, categories: state.categories.concat(category)};
         default:
             return state;
     }

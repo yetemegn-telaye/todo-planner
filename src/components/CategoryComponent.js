@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Card, CardBody, CardHeader, Row,Col, CardText,Button,
-    Breadcrumb,BreadcrumbItem, ModalHeader, ModalBody, Label, Input } from 'reactstrap';
+    Breadcrumb,BreadcrumbItem, ModalHeader, ModalBody, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import {LocalForm, Control, Errors} from 'react-redux-form';
@@ -10,21 +10,183 @@ import Loading from './LoadingComponent';
 const maxLength = (len) =>(val) => !(val) || (val.length <= len) ;
 const minLength = (len) => (val) => (val) && (val.length >= len);
 
-function RenderCategories({category}) {
+function RenderCategories({category,edit_category,delete_category}) {
     return(
-        <Card body outline color="primary">
-            <CardHeader tag="h5">{category.cat_name}</CardHeader>
+        <Card body outline color="info">
+            <CardHeader tag="h5" className="text-uppercase">{category.cat_name} 
+                   
+                <span className="float-right" style={{display: "flex"}}>
+                    <CategoryEditForm cat={category} edit_category={edit_category}/>
+                   
+                    <RemoveCategory cat_id={category.id} delete_category={delete_category} />
+                </span>
+            </CardHeader>
             <CardBody>
-                <span className="text-muted">{new Intl.DateTimeFormat('en-US',{year:'numeric', month:'short', day:'2-digit'}).format(new Date(Date.parse(category.cat_createdDate)))}</span>
-                <CardText>{category.cat_description}</CardText>
-                <Link to={`/categories/${category.cat_id}`}>
-                    <Button className="btn btn-outline-primary">View Tasks</Button>
+               
+                <CardText className="text-muted">
+                    {new Intl.DateTimeFormat('en-US',{year:'numeric', month:'short', day:'2-digit'}).format(new Date(Date.parse(category.cat_createdDate)))}
+                    <p className="text-uppercase">{category.cat_description}</p>
+                </CardText>
+                <Link to={`/categories/${category.id}`}>
+                    <Button className="btn btn-outline-info">View Tasks</Button>
                 </Link>
             </CardBody>
         </Card>
     );
 }
-function CategoryForm({add_category}){
+
+
+//DELETE A CATEGORY
+function RemoveCategory({delete_category,cat_id}){
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const setModalIsOpenToTrue =()=>{
+        setModalIsOpen(true)
+    };
+    const setModalIsOpenToFalse =()=>{
+        setModalIsOpen(false)
+    };
+    const customStyles = {
+        content : {
+          top                   : '50%',
+          left                  : '50%',
+          right                 : 'auto',
+          bottom                : 'auto',
+          marginRight           : '-50%',
+          transform             : 'translate(-50%, -50%)',
+          
+        }
+    };
+   function handleClicked(e){
+           if(e.target.name=="yes"){
+               delete_category(cat_id);
+               alert("Successfully Deleted");
+           }
+           else
+                setModalIsOpenToFalse();
+       
+        
+    }
+  
+    return(
+        <div className="m-2">
+             <a  className="btn btn-danger btn-floating btn-sm text-white"  onClick={setModalIsOpenToTrue}>
+                 <span className="fa fa-trash-o mr-1" style={{"paddingLeft":"4px"}}></span>
+                    </a>
+             <Modal isOpen={modalIsOpen} style={customStyles}>
+                 <span type="button" className="btn btn-outline-danger rounded-pill float-right"
+                    
+                   onClick={setModalIsOpenToFalse} >
+                <i className="fa fa-times text-secondary"></i>
+                </span>
+                <ModalHeader className="text-secondary">
+                   Delete
+                </ModalHeader>
+                <hr/>
+                <ModalBody>
+                    <LocalForm>
+                        <Row className="form-group">
+                            <Label htmlFor="name" md={8}>Are you sure , you want to delete the category?</Label>
+                            
+                        </Row>
+                        
+                       
+                        <Row className="text-center">
+                            <Col md={{size:3, offset: 2}} className="mb-2">
+                                <Button outline color="danger" onClick={(e)=>handleClicked(e)} name="yes" id="yes">YES</Button>
+                            </Col>
+                            <Col md={{size:3}}>
+                                <Button outline color="success" onClick={(e)=>handleClicked(e)} name="no" id="no">CANCEL</Button>
+                            </Col>
+                        </Row>
+                    </LocalForm>
+                </ModalBody>
+             </Modal>
+        </div>
+    );
+
+}
+
+
+function CategoryEditForm({cat,edit_category}){
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const setModalIsOpenToTrue =()=>{
+        setModalIsOpen(true)
+    };
+    const setModalIsOpenToFalse =()=>{
+        setModalIsOpen(false)
+    };
+    const customStyles = {
+        content : {
+          top                   : '50%',
+          left                  : '50%',
+          right                 : 'auto',
+          bottom                : 'auto',
+          marginRight           : '-50%',
+          transform             : 'translate(-50%, -50%)',
+          
+        }
+    };
+   function handleSubmit(values){
+        alert("updated Category: " + JSON.stringify(values));
+        edit_category(cat.id,values.name,values.desc);
+    }
+  
+    return(
+        <div className="m-2">
+             <a  className="btn-light btn-sm text-secondary" onClick={setModalIsOpenToTrue}>
+                 <span className="fa fa-pencil-square-o mr-2"></span>
+                    (Edit)</a>
+             <Modal isOpen={modalIsOpen} style={customStyles}>
+                 <span type="button" className="btn btn-outline-danger rounded-pill float-right"
+                    
+                   onClick={setModalIsOpenToFalse} >
+                <i className="fa fa-times text-secondary"></i>
+                </span>
+                <ModalHeader className="text-secondary">
+                    EDIT
+                </ModalHeader>
+                <hr/>
+                <ModalBody>
+                    <LocalForm onSubmit={(values)=>handleSubmit(values)}>
+                        <Row className="form-group">
+                            <Label htmlFor="name" md={4}>Title:</Label>
+                            <Col md={8}>
+                                <Control.text model=".name" name="name" 
+                                placeholder={cat.cat_name} className="form-control"
+                                validators={{minLength: minLength(3), maxLength: maxLength(15)}}
+                                />
+                                <Errors
+                                    model=".name" show="touched" className="text-danger"
+                                    messages={{
+                                        minLength: 'Must be Greater than 3 Characters',
+                                        maxLength: 'Must be Less than 15 Characters'
+                                    }}
+                                />
+                            </Col>
+                        </Row>
+                        <Row className="form-group">
+                            <Label htmlFor="desc" md={4}>Description:</Label>
+                            <Col md={8}>
+                                <Control.textarea model=".desc" name="desc" rows="2"
+                                placeholder={cat.cat_description} className="form-control" />
+                            </Col>
+                        </Row>
+                       
+                        <Row className="text-center">
+                            <Col md={{size:10, offset: 4}}>
+                                <Button outline color="success" >Done</Button>
+                            </Col>
+                        </Row>
+                    </LocalForm>
+                </ModalBody>
+             </Modal>
+        </div>
+    );
+
+}
+
+//To ADD A CATEGORY
+function CategoryForm({post_category}){
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const setModalIsOpenToTrue =()=>{
         setModalIsOpen(true)
@@ -45,7 +207,7 @@ function CategoryForm({add_category}){
     };
    function handleSubmit(values){
         alert("Added Category: " + JSON.stringify(values));
-        add_category(values.name, values.desc);
+        post_category(values.name, values.desc);
     }
   
     return(
@@ -60,7 +222,7 @@ function CategoryForm({add_category}){
                 <i className="fa fa-times text-secondary"></i>
                 </span>
                 <ModalHeader>
-                    Add Category
+                    New Category
                 </ModalHeader>
                 <hr/>
                 <ModalBody>
@@ -89,9 +251,9 @@ function CategoryForm({add_category}){
                             </Col>
                         </Row>
                        
-                        <Row className="form-control">
+                        <Row className="text-center">
                             <Col md={{size:10, offset: 4}}>
-                                <Button outline color="primary" >Create</Button>
+                                <Button outline color="info" >Create</Button>
                             </Col>
                         </Row>
                     </LocalForm>
@@ -119,8 +281,8 @@ const Category = (props)=>{
     else{
         const category = props.cats.map((category)=>{
             return(
-                <div key={category.cat_id} className="col-12 col-md-5 m-3">
-                    <RenderCategories category={category}/>
+                <div key={category.id} className="col-12 col-md-5 m-3">
+                    <RenderCategories category={category} edit_category={props.edit_category} delete_category={props.delete_category} />
                 </div>
                 );
         });
@@ -140,7 +302,7 @@ const Category = (props)=>{
                         {category}
                     </div>
                     <div className="row">
-                    <CategoryForm add_category={props.add_category}/>
+                    <CategoryForm post_category={props.post_category}/>
                     </div>
                 </div>
                 

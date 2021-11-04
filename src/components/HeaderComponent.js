@@ -35,7 +35,7 @@ class Header extends Component{
     render(){
     return(
         <React.Fragment>
-            <Navbar dark className="fixed header" expand="md">
+            {/*<Navbar dark className="fixed header" expand="md">
                 <div className="container header-container">
                     <NavbarToggler onClick={this.toggleNav}/>
                     <NavbarBrand href="#">
@@ -68,7 +68,7 @@ class Header extends Component{
                         </Nav>
                     </Collapse>
                 </div>
-            </Navbar>
+            </Navbar>*/}
             <Jumbotron fluid>
                 <div className="container">
                     <div className="row">
