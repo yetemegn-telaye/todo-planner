@@ -11,7 +11,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <div className="main">
+        <div className=" main">
           <Main/>
         </div>
       </Router>
